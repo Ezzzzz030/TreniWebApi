@@ -11,17 +11,17 @@ namespace TreniWebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UtentiController : ControllerBase
+    public class UtentiController : MainController
     {
-        private TreniDbContext _dbContext;
         private UtentiManager _utentiManager;
 
-        public UtentiController(DbContextOptions options, TreniDbContext dbContext, IConfiguration configuration)
-        {
-            _dbContext = dbContext;
+        public UtentiController(DbContextOptions options, TreniDbContext dbContext, IConfiguration configuration) : base(options, dbContext, configuration) {
+
             _utentiManager = new UtentiManager();
         }
 
+
+        #region Register
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UtenteRegistrationRequest request)
         {
@@ -44,7 +44,9 @@ namespace TreniWebApi.Controllers
 
             return CreatedAtAction(nameof(Register), new { id = utente.Id }, utente);
         }
+        #endregion
 
+        #region Login
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UtenteLoginRequest request)
         {
@@ -70,7 +72,7 @@ namespace TreniWebApi.Controllers
                 response.Message = messageBadRequest;
                 return BadRequest(response);
             }
-
         }
+        #endregion
     }
 }

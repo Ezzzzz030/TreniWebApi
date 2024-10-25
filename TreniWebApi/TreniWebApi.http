@@ -1,6 +1,0 @@
-@TreniWebApi_HostAddress = http://localhost:5177
-
-GET {{TreniWebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

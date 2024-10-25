@@ -8,13 +8,11 @@ namespace TreniWebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StazioniController : ControllerBase
+    public class StazioniController : MainController
     {
-        TreniDbContext _dbContext;
-        
-        public StazioniController(DbContextOptions options, TreniDbContext dbContext, IConfiguration configuration)
+        public StazioniController(DbContextOptions options, TreniDbContext dbContext, IConfiguration configuration) : base(options, dbContext, configuration)
         {
-            _dbContext = dbContext;
+
         }
 
         [HttpGet("{id}")]
