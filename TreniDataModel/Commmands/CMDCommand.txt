@@ -1,4 +1,4 @@
 ﻿
 #Aggiornare il il modello del database nel percorso C:\Projects\TreniApplications\TreniWebApi\TreniDataModel
 
-dotnet ef dbcontext scaffold "Server=.\MSSQLSERVER22;Database=TreniDB;User Id=sa;Password=RiGe1357!;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -o Models -f
+dotnet ef dbcontext scaffold "Server=RICCARDOPC\ONDAVISION;Database=TreniDB;User Id=sa;Password=Omega123;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -o Models -f

@@ -6,6 +6,10 @@ using TreniWebApi.Models.Requests;
 using TreniWebApi.Manager;
 using Microsoft.AspNetCore.Http;
 using TreniWebApi.Models.Response;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace TreniWebApi.Controllers
 {
@@ -15,11 +19,10 @@ namespace TreniWebApi.Controllers
     {
         private UtentiManager _utentiManager;
 
-        public UtentiController(DbContextOptions options, TreniDbContext dbContext, IConfiguration configuration) : base(options, dbContext, configuration) {
-
+        public UtentiController(TreniDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration) 
+        {
             _utentiManager = new UtentiManager();
         }
-
 
         #region Register
         [HttpPost("Register")]
@@ -64,6 +67,7 @@ namespace TreniWebApi.Controllers
 
             if (_utentiManager.VerifyPasswordHash(request.Password, utente.PasswordHash, utente.PasswordSalt))
             {
+                response.TokenSession = _utentiManager.CreateToken(utente, _configuration.GetSection("AppSettings:TokenKey").Value!);
                 response.Message = messageOk;
                 return Ok(response);
             }

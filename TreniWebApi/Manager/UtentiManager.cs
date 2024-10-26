@@ -1,4 +1,10 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using TreniDataModel.Models;
 
 namespace TreniWebApi.Manager
 {
@@ -20,6 +26,25 @@ namespace TreniWebApi.Manager
 
                 return computedHash.SequenceEqual(passwordHash);
             }
+        }
+        public string CreateToken(Utente utente, string tokenKey)
+        {
+            List<Claim> claims = new List<Claim>{
+                new Claim(ClaimTypes.Email, utente.Email)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddHours(4),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TreniWebApi.Controllers
     [Route("api/[controller]")]
     public class StazioniController : MainController
     {
-        public StazioniController(DbContextOptions options, TreniDbContext dbContext, IConfiguration configuration) : base(options, dbContext, configuration)
+        public StazioniController(TreniDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
         {
 
         }

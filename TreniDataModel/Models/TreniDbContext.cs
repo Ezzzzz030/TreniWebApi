@@ -25,9 +25,6 @@ public partial class TreniDbContext : DbContext
 
     public virtual DbSet<Utente> Utentes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=RICCARDOPC;Database=TreniDB;User Id=sa;Password=Omega123;Encrypt=False;");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Stazione>(entity =>
