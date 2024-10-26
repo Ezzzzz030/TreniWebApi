@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using TreniDataModel.Models;
@@ -15,7 +16,7 @@ namespace TreniWebApi.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<ActionResult<Stazione>> GetStazione(int id)
         {
             var stazione = await _dbContext.Staziones.FindAsync(id);
@@ -28,13 +29,13 @@ namespace TreniWebApi.Controllers
             return Ok(stazione);
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<ActionResult<Stazione>> GetStazioni()
         {
             return Ok(await _dbContext.Staziones.ToListAsync());
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<ActionResult> GetStazioni(StazioneRegistrationRequest request)
         {
             Stazione stazione = new Stazione { Indirizzo = request.Indirizzo, Nome = request.Nome };
@@ -43,7 +44,7 @@ namespace TreniWebApi.Controllers
             return CreatedAtAction(nameof(GetStazioni), new { id = stazione.Id }, stazione);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<ActionResult> DeleteStazione(int id)
         {
             var stazione = await _dbContext.Staziones.FindAsync(id);
@@ -57,7 +58,7 @@ namespace TreniWebApi.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> PutTodoItem(long id, Stazione stazione)
         {
             if (id != stazione.Id)
