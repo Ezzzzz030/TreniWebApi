@@ -11,12 +11,12 @@ namespace TreniWebApi.Controllers
     [Route("api/[controller]")]
     public class StazioniController : MainController
     {
-        public StazioniController(TreniDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
+        public StazioniController(TreniDbContext dbContext, IConfiguration configuration) 
+            : base(dbContext, configuration)
         {
-
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Stazione>> GetStazione(int id)
         {
             var stazione = await _dbContext.Staziones.FindAsync(id);
@@ -29,7 +29,7 @@ namespace TreniWebApi.Controllers
             return Ok(stazione);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<ActionResult<Stazione>> GetStazioni()
         {
             return Ok(await _dbContext.Staziones.ToListAsync());

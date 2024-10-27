@@ -9,7 +9,7 @@ namespace TreniWebApi.Controllers
         public TreniDbContext _dbContext { get; set; }
         protected readonly IConfiguration _configuration;
 
-        protected MainController(TreniDbContext dbContext, IConfiguration configuration)
+        public MainController(TreniDbContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _configuration = configuration;

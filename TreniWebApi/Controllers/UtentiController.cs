@@ -19,7 +19,8 @@ namespace TreniWebApi.Controllers
     {
         private UtentiManager _utentiManager;
 
-        public UtentiController(TreniDbContext dbContext, IConfiguration configuration) : base(dbContext, configuration) 
+        public UtentiController(TreniDbContext dbContext, IConfiguration configuration) 
+            : base(dbContext, configuration) 
         {
             _utentiManager = new UtentiManager();
         }
